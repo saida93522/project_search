@@ -17,8 +17,11 @@
     <a href="{% url 'project' project.id %}"> {{ project.title }}</a>
     <br />
     Description: {{ project.description }}
+    <p>Total Vote: {{project.vote_total}}</p>
+    <p>Tags: {{ tags }}</p>
   </li>
   <br />
   {% endfor %}
+  <!--  -->
 </ul>
 {% endblock %}
