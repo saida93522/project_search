@@ -29,6 +29,10 @@ class Review(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
     value = models.CharField(max_length=200, choices=VOTE_TYPE)
+    
+    objects = models.Manager() # provides interface between db query operations and the django model.
+
+
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True,editable=False)
 
@@ -37,6 +41,9 @@ class Review(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=200)
+    
+    objects = models.Manager() # provides interface between db query operations and the django model.
+
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True,editable=False)
 

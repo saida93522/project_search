@@ -8,15 +8,15 @@ def home(request):
     return render(request,'home.html')
 
 def projects(request):
-    projects_List = Project.objects.all()
-   
-    projects_tag = Project.objects.first()
-    projects_tag.tags.all()
-    context = {'projects':projects_List, 'tags':projects_tag}
+    projects = Project.objects.all()
+    
+
+    
+    context = {'projects':projects}
     return render(request,'projects/projects.html', context)
 
 def single_project(request,pk):
-    projects_List = Project.objects.get(id=pk)
+    projectObj = Project.objects.get(id=pk)
   
-    context = {'project':projects_List}
+    context = {'project':projectObj}
     return render(request,'projects/single_project.html',context)
