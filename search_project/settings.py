@@ -139,8 +139,12 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-#where to upload content submitted by users
+# where to upload content submitted by users
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+# where static files in production will be.
+# use collectstatic command which will collect all the static files/folders and bundle them up into one file 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 INTERNAL_IPS = [
     '127.0.0.1',
