@@ -132,10 +132,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/images/'
+
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+#where to upload content submitted by users
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 INTERNAL_IPS = [
     '127.0.0.1',

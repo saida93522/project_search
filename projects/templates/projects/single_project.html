@@ -4,6 +4,12 @@
 
 <h1>Single Project Template</h1>
 
+<img
+  src="{{project.feature_image.url}}"
+  class="img-fluid img-thumbnail"
+  alt="..."
+  width="600"
+/>
 <p>{{ project.title }}</p>
 <p>{{ project.description }}</p>
 {% for tag in project.tags.all %}

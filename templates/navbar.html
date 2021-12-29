@@ -1,7 +1,23 @@
-<a href="{% url 'home' %}"> LOGO </a>
+{% load static %}
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <img
+        src="{% static 'images/logo.svg' %}"
+        alt=""
+        class="d-inline-block align-text-top"
+      />
+    </a>
+
+    <div class="nav">
+      <a class="nav-link text-light" href="{% url 'projects' %}">Projects</a>
+      <a class="nav-link text-light" href="{% url 'create-project' %}"
+        >Add Projects</a
+      >
+    </div>
+  </div>
+</nav>
 <br />
-<a href="{% url 'projects' %}">Projects</a>
-<a href="{% url 'create-project' %}">Add Projects</a>
 
 <br />
 <hr />
