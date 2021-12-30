@@ -5,8 +5,6 @@ from django.shortcuts import render
 
 from .forms import ProjectForm
 
-def home(request):
-    return render(request,'home.html')
 
 def projects(request):
     projects = Project.objects.all()
