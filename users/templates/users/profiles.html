@@ -1,3 +1,10 @@
 {% extends 'main.html' %} {% load static %} {% block content %}
-<h1>Users Profile</h1>
-{% endblock content%}
+<!--  -->
+{% for user in users %}
+<div style="border: 1px solid #eee">
+  <img src="{{user.profile_image.url}}" alt="" style="width: 100px" />
+</div>
+<h3>{{user.name}}</h3>
+<h6>{{user.short_intro}}</h6>
+<p>{{user.bio}}</p>
+{% endfor %} {% endblock content%}
