@@ -28,7 +28,9 @@ class Profile(models.Model):
     objects = models.Manager() # provides interface between db query operations and the django model.
 
     def __str__(self):
-        return str(self.user.username)
+        return str(self.username)
+
+
 
 class Skills(models.Model):
     owner = models.ForeignKey('Profile', on_delete=models.CASCADE, null=True,blank=True)
