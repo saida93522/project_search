@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from .models import User,Profile
+from .models import User, Profile, Skills
 
 def profiles(request):
     users = Profile.objects.all()
