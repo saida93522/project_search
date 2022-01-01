@@ -7,7 +7,9 @@ from .models import User, Profile, Skills
 # Authentication
 
 def register_user(request):
-    pass
+    context = {}
+    return render(request, 'signup.html',context)
+   
 
 def login_user(request):
     context = {}

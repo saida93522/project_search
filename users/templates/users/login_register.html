@@ -1,6 +1,6 @@
 {% extends 'main.html' %} {% load static %} {% block content %}
 <!-- login/register form -->
-
+<form action=""></form>
 <div class="auth">
   <div class="card">
     <div class="auth__header text-center">
@@ -43,7 +43,7 @@
     </form>
     <div class="auth__alternative">
       <p>Don’t have an Account?</p>
-      <a href="#">Sign Up</a>
+      <a href="{% url 'register' %}">Sign Up</a>
     </div>
   </div>
 </div>
