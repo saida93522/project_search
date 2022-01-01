@@ -1,6 +1,6 @@
 {% extends 'main.html' %} {% load static %} {% block content %}
 <!-- login/register form -->
-<form action=""></form>
+<!-- <form action=""></form> -->
 <div class="auth">
   <div class="card">
     <div class="auth__header text-center">
@@ -11,7 +11,7 @@
       <p>Hello Developer, Welcome Back!</p>
     </div>
 
-    <form action="{% url 'login' %}" class="form auth__form">
+    <form method="POST" action="{% url 'login' %}" class="form auth__form">
       {% csrf_token %}
       <!-- Input:Email -->
       <div class="form__field">

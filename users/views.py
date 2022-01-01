@@ -33,6 +33,7 @@ def login_user(request):
         try:
             user = User.objects.get(username=username)
         except Exception:
+            print('username OR password does not exist.')
             messages.error(request,'username OR password does not exist.')
             
         # if user does exist, verify credentials are met
@@ -44,10 +45,11 @@ def login_user(request):
             login(request, user)
             return redirect('profiles')
         else:
+            print('username OR password is incorrect.')
             messages.error(request,'username OR password is incorrect.')
         
-    context = {'user':user}
-    return render(request, 'users/login_register.html',context)
+    context = {}
+    return render(request, 'users/login_register.html')
 
 def logout_user(request):
     pass
