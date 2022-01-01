@@ -8,5 +8,10 @@ from . import views
 urlpatterns = [
     path('', views.profiles,name='profiles'),
     path('profile/<str:pk>/', views.profile,name='my_profile'),
-    # path('profiles/', views.profiles,name='profiles'),
+
+
+    # authentication
+    path('register/', views.register_user,name='signup'),
+    path('login/', views.login_user,name='login'),
+    path('logout/', views.logout_user,name='logout'),
 ]

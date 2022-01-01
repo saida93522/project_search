@@ -21,3 +21,16 @@ def skills(request,pk):
     # skills = Skills.objects.get(id=pk)
     # context = {'skills':skills}
     # return render(request, 'profile.html',context)
+
+
+
+
+def register_user(request):
+    pass
+
+def login_user(request):
+    context = {}
+    return render(request, 'users/login_register.html',context)
+
+def logout_user(request):
+    pass

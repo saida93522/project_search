@@ -5,7 +5,7 @@ venv
 *.pyc
 .vscode
 db.sqlite3
-
+notes.txt
 #DLL files
 __pycache__/
 *.py[cod]
