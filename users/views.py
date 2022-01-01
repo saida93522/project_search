@@ -3,6 +3,20 @@ from django.contrib import messages
 
 from .models import User, Profile, Skills
 
+
+# Authentication
+
+def register_user(request):
+    pass
+
+def login_user(request):
+    context = {}
+    return render(request, 'users/login_register.html',context)
+
+def logout_user(request):
+    pass
+
+# Profile
 def profiles(request):
     users = Profile.objects.all()
     context = {'users':users}
@@ -23,14 +37,3 @@ def skills(request,pk):
     # return render(request, 'profile.html',context)
 
 
-
-
-def register_user(request):
-    pass
-
-def login_user(request):
-    context = {}
-    return render(request, 'users/login_register.html',context)
-
-def logout_user(request):
-    pass
