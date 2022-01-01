@@ -30,8 +30,10 @@
         <!-- if session in browser/authentic, means your logged in, show logout link -->
         {% if request.user.is_authenticated %}
         <li class="header__menuItem">
-          Hi, {{request.user.username}}
-          <a href="{% url 'my_profile' request.user.id %} "></a>
+          Hi,
+          <a href="{% url 'my_profile' request.user.profile.id %} "
+            >{{request.user.username}}</a
+          >
         </li>
         <li class="header__menuItem">
           <a href="{% url 'logout' %} ">Logout</a>
