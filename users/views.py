@@ -13,8 +13,8 @@ from .models import User, Profile, Skills
 # Authentication
 
 def register_user(request):
-    context = {}
-    return render(request, 'signup.html',context)
+    context = {'form':'form'}
+    return render(request, 'users/signup.html')
    
 
 def login_user(request):
