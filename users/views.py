@@ -52,7 +52,17 @@ def login_user(request):
     return render(request, 'users/login_register.html')
 
 def logout_user(request):
-    pass
+    """ Removes the authenticated user's ID from the request and deletes their session data.
+
+    Args:
+        request ([GET]): [gets current logged user id and flush session]
+
+    Returns:
+        [redirect login page]: [redirects user to the login page]
+    """
+    # deletes token created by session db
+    logout(request)
+    return redirect('login')
 
 
 
