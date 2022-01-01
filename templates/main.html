@@ -14,7 +14,6 @@
     />
     <!-- Mumble UI -->
     <link rel="stylesheet" href="{% static 'uikit/styles/uikit.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
 
     <!-- Dev Search UI -->
     <link
@@ -30,17 +29,27 @@
   <body>
     {% include 'navbar.html' %}
     <!-- message alerts -->
-    {% if messages %} {% for msg in messages %}
-    <div class="alert  alert--{{message.tags}}">
-      <p class="alert__message">{{msg}}</p>
-      <button class="alert__close">x</button>
+    {% if messages %}
+    <!--  -->
+
+    {% for msg in messages %}
+    <div class="msg-alert-container">
+      <div class="alert alert--{{message.tags}}">
+        <p class="alert__message">{{msg}}</p>
+        <button class="alert__close">x</button>
+      </div>
     </div>
+
+    {% endfor %}
     <!-- endfor -->
-    {% endfor %} {% endif %}
+    {% endif %}
+
     <!-- content -->
     {% block content %} {% endblock %}
 
     <!-- js files -->
     <!-- JavaScript Bundle with Popper -->
+
+    <script src="{% static 'uikit/app.js' %}"></script>
   </body>
 </html>

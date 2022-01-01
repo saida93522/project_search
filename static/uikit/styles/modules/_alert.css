@@ -42,3 +42,7 @@
 .alert > .alert__close:hover {
   opacity: 0.85;
 }
+.msg-alert-container {
+  display: flex;
+  justify-content: center;
+}

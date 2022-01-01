@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+
+from django.core.exceptions import ValidationError
 from django.http import HttpResponseForbidden 
 from django.contrib import messages
 
@@ -37,9 +39,10 @@ def login_user(request):
         # verify user exists in sessions db
         try:
             user = User.objects.get(username=username)
-        except Exception:
-            print('username OR password does not exist.')
-            messages.error(request,'username OR password does not exist.')
+            # messages.info(request, f'{username} Successfully Logged In') 
+        except:
+            messages.error(request,'Oh no!, Failed to login.')
+            
             
         # if user does exist, verify credentials are met
         #return User object that matches these credentials
@@ -50,10 +53,9 @@ def login_user(request):
             login(request, user)
             return redirect('profiles')
         else:
-            print('username OR password is incorrect.')
             messages.error(request,'username OR password is incorrect.')
         
-    context = {}
+  
     return render(request, 'users/login_register.html')
 
 def logout_user(request):
@@ -66,7 +68,10 @@ def logout_user(request):
         [redirect login page]: [redirects user to the login page]
     """
     # deletes token created by session db
+    username = request.user.username
     logout(request)
+    print(username)
+    messages.success(request,f'Successfully logged out. We will miss you.')
     return redirect('login')
 
 
