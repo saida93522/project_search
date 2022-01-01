@@ -32,7 +32,7 @@ def login_user(request):
         # verify user exists in sessions db
         try:
             user = User.objects.get(username=username)
-        except:
+        except Exception:
             messages.error(request,'username OR password does not exist.')
             
         # if user does exist, verify credentials are met
@@ -40,7 +40,7 @@ def login_user(request):
         user = authenticate(request, username=username,password=password)
         if user is not None:
             # creates a session for this user in the db
-            # then adds that session into the browser cookies.
+            # then adds that session into the browser cookies.i.e cookies=sessionid
             login(request, user)
             return redirect('profiles')
         else:
