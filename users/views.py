@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate 
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden 
 from django.contrib import messages
 
+from django.db.models import Q
 from .models import User, Profile, Skills
 
 
@@ -23,6 +25,9 @@ def login_user(request):
     Returns:
         [message or homepage]: if user exists, user will be redirected to the homepage. otherwise an error message will be displayed.
     """
+    # restrict logged in user from seeing the log in page
+    if request.user.is_authenticated:
+        return redirect('profiles')
     
     if request.method == 'POST':
         # extract username password from POST dict
