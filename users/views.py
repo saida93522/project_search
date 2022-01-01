@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout, authenticate 
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from .models import User, Profile, Skills
@@ -12,11 +14,50 @@ def register_user(request):
    
 
 def login_user(request):
-    context = {}
+    """Authenticate username and password. verfiy credentials are met.
+    if the user exists in sessions db redirect to homepage.
+
+    Args:
+        request ([POST]): username and password data to login.
+
+    Returns:
+        [message or homepage]: if user exists, user will be redirected to the homepage. otherwise an error message will be displayed.
+    """
+    
+    if request.method == 'POST':
+        # extract username password from POST dict
+        username = request.POST['username'].lower()
+        password = request.POST['password']
+        
+        # verify user exists in sessions db
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.error(request,'username OR password does not exist.')
+            
+        # if user does exist, verify credentials are met
+        #return User object that matches these credentials
+        user = authenticate(request, username=username,password=password)
+        if user is not None:
+            # creates a session for this user in the db
+            # then adds that session into the browser cookies.
+            login(request, user)
+            return redirect('profiles')
+        else:
+            messages.error(request,'username OR password is incorrect.')
+        
+    context = {'user':user}
     return render(request, 'users/login_register.html',context)
 
 def logout_user(request):
     pass
+
+
+
+
+
+
+
 
 # Profile
 def profiles(request):
