@@ -18,9 +18,11 @@ urlpatterns = [
     # Account
     path('account/', views.user_account,name='account'),
     path('edit_account/', views.edit_account,name='edit_account'),
-    # path('/', views.,name=''),
-    # path('/', views.,name=''),
-    # path('/', views.,name=''),
+
+    # skilss
+    path('create_skill/', views.create_skill,name='create_skill'),
+    path('edit_skill/<str:pk>/', views.edit_skill,name='edit_skill'),
+    path('delete_skill/<str:pk>/', views.delete_skill,name='delete_skill'),
     
     
 ]

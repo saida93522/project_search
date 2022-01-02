@@ -9,7 +9,7 @@ from django.contrib import messages
 
 from django.db.models import Q
 from .models import Profile, Message
-from .forms import UserRegisterForm, ProfileForm
+from .forms import UserRegisterForm, ProfileForm, SkillForm
 
 
 # Authentication
@@ -133,11 +133,46 @@ def edit_account(request):
     context = {'form':form}
     return render(request, 'users/profile_form.html',context)
 
+@login_required(login_url='login')
+def create_skill(request):
+    profile = request.user.profile
+    form = SkillForm()
+    if request.method == 'POST':
+        form = SkillForm(request.POST)
+        if form.is_valid():
+            skill = form.save(commit=False)
+            skill.owner = profile
+            skill.save()
+            return redirect('account')
+    context = {'form':form}
+    return render(request, 'users/skill_form.html',context)
 
-def skills(request,pk):
-    pass
-    # skills = Skills.objects.get(id=pk)
-    # context = {'skills':skills}
-    # return render(request, 'profile.html',context)
+@login_required(login_url='login')
+def edit_skill(request,pk):
+    profile = request.user.profile
+    skill = profile.skills_set.get(id=pk)
+    form = SkillForm(instance=skill)
+
+    
+    if request.method == 'POST':
+        form = SkillForm(request.POST,instance=skill)
+        if form.is_valid():
+            form.save()
+            messages.success(request,('Skill was successfully updated!'))
+            return redirect('account')
+        
+    context = {'form':form}
+    return render(request, 'users/skill_form.html',context)
+
+@login_required(login_url='login')
+def delete_skill(request,pk):
+    profile = request.user.profile
+    skill = profile.skills_set.get(id=pk)
+    if request.method == 'POST':
+        skill.delete()
+        messages.error(request,('Skill was successfully deleted!'))
+        return redirect('account')
+    context = {'object':skill}
+    return render(request, 'delete_template.html', context)
 
 

@@ -28,3 +28,15 @@ class ProfileForm(ModelForm):
         for name,field in self.fields.items():
             field.widget.attrs.update({'class':'input'}) 
         
+
+class SkillForm(ModelForm):
+    class Meta:
+        model = Skills
+        fields = '__all__'
+        exclude = ['owner']
+        
+    def __init__(self, *args, **kwargs):
+        """ override init and modify/update project form fields. """
+        super(SkillForm, self).__init__(*args, **kwargs)
+        for name,field in self.fields.items():
+            field.widget.attrs.update({'class':'input'}) 

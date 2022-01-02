@@ -8,21 +8,18 @@
         ><i class="im im-angle-left"></i
       ></a>
       <br />
-
-      <form class="form" method="POST">
+      <h1>Skill</h1>
+      <form class="form" method="POST" action="">
         {% csrf_token %} {% for field in form %}
-        <!-- Input:Text -->
         <div class="form__field">
           <label for="formInput#text">{{field.label}} </label>
           {{field}}
         </div>
         {% endfor %}
         <input
-          class="input input--text"
-          id="formInput#text"
-          type="text"
-          name="text"
-          placeholder="Enter text"
+          class="btn btn--sub btn--lg my-md"
+          type="submit"
+          value="Submit"
         />
       </form>
     </div>

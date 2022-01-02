@@ -52,9 +52,9 @@ def edit_project(request,pk):
 @login_required(login_url='login')
 def delete_project(request,pk):
     profile = request.user.profile
-    project = profile.project_set.get(id=pk)
+    project = profile.project.get(id=pk)
     if request.method == 'POST':
         project.delete()
         return redirect('projects')
     context = {'object':project}
-    return render(request,'projects/delete_template.html', context )
+    return render(request,'delete_template.html', context )
