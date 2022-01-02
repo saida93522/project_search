@@ -93,19 +93,11 @@ def logout_user(request):
     messages.success(request,f'Successfully logged out. We will miss you.')
     return redirect('login')
 
-
-
-
-
-
-
-
-# Profile
+#  Profile
 def profiles(request):
     users = Profile.objects.all()
     context = {'users':users}
     return render(request, 'users/profiles.html',context)
-
 
 def profile(request,pk):
     profile = Profile.objects.get(id=pk)
@@ -113,6 +105,22 @@ def profile(request,pk):
     otherSkills = profile.skills_set.filter(skill_description="")
     context = {'profile':profile, 'topSkills':topSkills,'otherSkills':otherSkills }
     return render(request, 'users/user_profile.html',context)
+
+@login_required(login_url='login')
+def user_account(request):
+    """ Responds with the logged-in user's profile. """
+    profile = request.user.profile
+
+    skills = profile.skills_set.all()
+    projects = profile.project_set.all()
+   
+
+    context = {'profile':profile, 'skills':skills,'projects':projects}
+    return render(request, 'users/account.html',context)
+
+
+
+
 
 def skills(request,pk):
     pass
