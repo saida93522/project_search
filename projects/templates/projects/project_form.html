@@ -1,5 +1,5 @@
 {% extends 'main.html' %} {% load static %} {% block content %}
-<h1>Project Form</h1>
+
 <!-- Main Section -->
 <main class="formPage my-xl">
   <div class="content-box">
@@ -8,6 +8,10 @@
         ><i class="im im-angle-left"></i
       ></a>
       <br />
+
+      <div class="">
+        <h5>Project</h5>
+      </div>
 
       <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
