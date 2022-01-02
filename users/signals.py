@@ -23,16 +23,17 @@ def create_profile(sender,created,instance, **kwargs):
 
 
 
-def update_profile(sender,created,instance, **kwargs):
+def update_user_account(sender,created,instance, **kwargs):
     """ Update and save profile.
 
     Args:
-        sender ([Profile]): [description]
+        sender ([Profile]): [anytime Profile is updated,this function gets triggered]
         created ([Bool]): If User already exists,update profile. created = False
         instance ([Profile]): current profile.
     """
     profile = instance
     user = profile.user
+    #validate created == false to avoid recursion error
     if created == False:
         user.first_name = profile.name
         user.username = profile.username
@@ -55,5 +56,5 @@ def delete_profile(sender,instance, **kwargs):
         print('Error: Unable to delete user')
 
 post_save.connect(create_profile, sender=User)
-post_save.connect(update_profile, sender=Profile)
+post_save.connect(update_user_account, sender=Profile)
 post_delete.connect(delete_profile, sender=Profile)

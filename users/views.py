@@ -9,7 +9,7 @@ from django.contrib import messages
 
 from django.db.models import Q
 from .models import Profile, Message
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, ProfileForm
 
 
 # Authentication
@@ -118,8 +118,20 @@ def user_account(request):
     context = {'profile':profile, 'skills':skills,'projects':projects}
     return render(request, 'users/account.html',context)
 
-
-
+@login_required(login_url='login')
+def edit_account(request):
+    profile = request.user.profile # returns the logged in user profile
+    form = ProfileForm(instance=profile)
+    
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES,instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request,('Your profile was successfully updated!'))
+            return redirect('account')
+        
+    context = {'form':form}
+    return render(request, 'users/profile_form.html',context)
 
 
 def skills(request,pk):

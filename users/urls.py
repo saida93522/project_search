@@ -17,7 +17,7 @@ urlpatterns = [
 
     # Account
     path('account/', views.user_account,name='account'),
-    # path('/', views.,name=''),
+    path('edit_account/', views.edit_account,name='edit_account'),
     # path('/', views.,name=''),
     # path('/', views.,name=''),
     # path('/', views.,name=''),
