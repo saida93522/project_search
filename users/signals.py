@@ -40,7 +40,7 @@ def update_profile(sender,created,instance, **kwargs):
         user.save()
         
 
-def delete_profile(sender,created,instance, **kwargs):
+def delete_profile(sender,instance, **kwargs):
     """ delete User when profile is deleted
 
     Args:

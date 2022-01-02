@@ -11,9 +11,22 @@
       <p>Create a new developer account</p>
     </div>
 
-    <form action="{% url 'register' %}" class="form auth__form">
+    <form method="POST" action="{% url 'register' %}" class="form auth__form">
+      {% csrf_token %}
       <!-- Input:Text -->
+      {% for field in form %}
       <div class="form__field">
+        <label for="formInput#text">{{field.label}}: </label>
+        {{field}}
+        <!-- <input
+          class="input input--text"
+          id="formInput#text"
+          type="text"
+          name="text"
+          placeholder="e.g. Dennis Ivanov"
+        /> -->
+      </div>
+      <!-- <div class="form__field">
         <label for="formInput#text">Full Name: </label>
         <input
           class="input input--text"
@@ -22,10 +35,10 @@
           name="text"
           placeholder="e.g. Dennis Ivanov"
         />
-      </div>
+      </div> -->
 
       <!-- Input:Email -->
-      <div class="form__field">
+      <!-- <div class="form__field">
         <label for="formInput#email">Email Address: </label>
         <input
           class="input input--email"
@@ -34,10 +47,10 @@
           name="email"
           placeholder="e.g. user@domain.com"
         />
-      </div>
+      </div> -->
 
       <!-- Input:Password -->
-      <div class="form__field">
+      <!-- <div class="form__field">
         <label for="formInput#password">Password: </label>
         <input
           class="input input--password"
@@ -46,9 +59,9 @@
           name="password"
           placeholder="••••••••"
         />
-      </div>
+      </div> -->
       <!-- Input:Password -->
-      <div class="form__field">
+      <!-- <div class="form__field">
         <label for="formInput#confirm-password">Confirm Password: </label>
         <input
           class="input input--password"
@@ -57,7 +70,9 @@
           name="confirm-password"
           placeholder="••••••••"
         />
-      </div>
+      </div> -->
+      <!-- Submit Form -->
+      {% endfor %}
       <div class="auth__actions">
         <input class="btn btn--sub btn--lg" type="submit" value="Sign  In" />
       </div>

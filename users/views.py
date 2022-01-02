@@ -1,20 +1,38 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseForbidden 
 from django.contrib import messages
 
 from django.db.models import Q
-from .models import User, Profile, Skills
+from .models import Profile, Message
+from .forms import UserRegisterForm
 
 
 # Authentication
 
 def register_user(request):
-    context = {'form':'form'}
-    return render(request, 'users/signup.html')
+    form = UserRegisterForm()
+
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False) #hold before processing
+            user.username = user.username.lower()
+            user.save()
+            
+            messages.success(request,f'Welcome {user.name}.')
+            # log user in and redict them to profile page
+            login(request, user)
+            return redirect('profiles')
+        else:
+            messages.error(request,f'An error occurred during registration.')
+            return render(request, '404.html')
+    context = {'form':form}
+    return render(request, 'users/signup.html',context)
    
 
 def login_user(request):
@@ -27,6 +45,7 @@ def login_user(request):
     Returns:
         [message or homepage]: if user exists, user will be redirected to the homepage. otherwise an error message will be displayed.
     """
+    
     # restrict logged in user from seeing the log in page
     if request.user.is_authenticated:
         return redirect('profiles')
