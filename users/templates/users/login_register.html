@@ -1,6 +1,5 @@
 {% extends 'main.html' %} {% load static %} {% block content %}
 <!-- login/register form -->
-<!-- <form action=""></form> -->
 <div class="auth">
   <div class="card">
     <div class="auth__header text-center">
@@ -13,7 +12,7 @@
 
     <form method="POST" action="{% url 'login' %}" class="form auth__form">
       {% csrf_token %}
-      <!-- Input:Email -->
+      <!-- Input:Username -->
       <div class="form__field">
         <label for="formInput#text">Username: </label>
         <input
@@ -46,5 +45,6 @@
       <a href="{% url 'register' %}">Sign Up</a>
     </div>
   </div>
+  <!-- end-card -->
 </div>
 {% endblock content %}
