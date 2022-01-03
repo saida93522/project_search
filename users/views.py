@@ -11,7 +11,7 @@ from django.db.models import Q
 from .models import Profile, Message
 from .forms import UserRegisterForm, ProfileForm, SkillForm
 
-
+from .utils import search_profiles
 # Authentication
 
 def register_user(request):
@@ -95,8 +95,10 @@ def logout_user(request):
 
 #  Profile
 def profiles(request):
-    users = Profile.objects.all()
-    context = {'users':users}
+    # verify request has a method/query else set query to an empty string
+    users,search_query = search_profiles(request)
+  
+    context = {'users':users,'search_query':search_query}
     return render(request, 'users/profiles.html',context)
 
 def profile(request,pk):
