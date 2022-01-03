@@ -3,16 +3,17 @@ from  .models import Project, Review, Tag
 from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
-# Create your views here.
-from django.shortcuts import render
+
+from django.db.models import Q
+from .utils import search_projects
 
 from .forms import ProjectForm
 
 
 def projects(request):
-    projects = Project.objects.all()
+    projects, search_query = search_projects(request)
     
-    context = {'projects':projects}
+    context = {'projects':projects, 'search_query':search_query}
     return render(request,'projects/projects.html', context)
 
 def single_project(request,pk):

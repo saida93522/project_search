@@ -1,9 +1,9 @@
-""" Contains helper functions."""
+""" Contains helper functions for users app."""
 
 from django.db.models import Q
 from .models import Profile, Skills
 def search_profiles(request):
-    """ A search function to trigger for all searches on the webpage."""
+    """ Search for developers/profiles."""
     search_query = ''
     if request.GET.get('search_query'):
         search_query = request.GET.get('search_query')
