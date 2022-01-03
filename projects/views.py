@@ -3,37 +3,19 @@ from  .models import Project, Review, Tag
 from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
+from django.core.paginator import Paginator
 
-
-from .utils import search_projects
+from .utils import search_projects, paginate_projects
 
 from .forms import ProjectForm
 
-from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
+
 def projects(request):
     projects, search_query = search_projects(request)
-    page = request.GET.get('page') #first page of result
-    results = 3 #3 result per-page
-    paginator = Paginator(projects, results)
-
-    try:
-        #if requested page is an integer
-        #render a Page object for the given 1-based page number.
-        projects = paginator.page(page)
-    except PageNotAnInteger as e:
-        #if page is not past in(page=1) or not an integer return the first page
-        page = 1
-        projects = paginator.page(page)
-        print(e)
-    except EmptyPage as empty_page:
-        #if page contains no results,if a user goes out of that index
-        page = paginator.num_pages
-        projects = paginator.page(page)
-        print(empty_page)
-        
+    custom_range, projects = paginate_projects(request, projects,6)
     
     
-    context = {'projects':projects, 'search_query':search_query, 'paginator':paginator}
+    context = {'projects':projects, 'search_query':search_query,'custom_range':custom_range}
     return render(request,'projects/projects.html', context)
 
 def single_project(request,pk):

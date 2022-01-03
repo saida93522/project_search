@@ -79,46 +79,9 @@
   </section>
 
   <!-- pagination -->
-  <div class="pagination">
-    <ul class="container">
-      <!-- previous-btn -->
-      {% if projects.has_previous %}
-      <li>
-        <a
-          href="?page={{ projects.previous_page_number }}"
-          class="btn page-link"
-          >&#10094; Prev</a
-        >
-      </li>
-      {% else %}
-      <li>
-        <a href="#" class="btn btn--disabled">&#10094; Prev</a>
-      </li>
-      {% endif %}
-
-      <!-- loop through the page range that paginator returns -->
-      {% for page in paginator.page_range %}
-      <!-- if the current page/index matches the current page btn(page={{page}}). , then -->
-      {% if page == projects.number %}
-      <li><a href="?page={{page}}" class="btn btn--sub">{{page}}</a></li>
-      {% else %}
-      <li><a href="?page={{page}}" class="btn page-link">{{page}}</a></li>
-
-      {% endif %} {% endfor %}
-
-      <!-- next-btn -->
-      {% if projects.has_next %}
-      <li>
-        <a href="?page={{ projects.next_page_number }}" class="btn page-link"
-          >Next &#10095;</a
-        >
-      </li>
-      {% else %}
-      <li>
-        <a href="#" class="btn btn--disabled">Next &#10095;</a>
-      </li>
-      {% endif %}
-    </ul>
-  </div>
+  <!--to make this dynamic, pass in properties of childs  -->
+  <!-- So in this case, passing 'with' and the queryset.this is a key value pair where projects is the value -->
+  {%include 'pagination.html' with queryset=projects custom_range=custom_range%}
+  <!--  -->
 </main>
 {% endblock %}
