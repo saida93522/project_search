@@ -1,6 +1,8 @@
 """ Contains helper functions for projects app."""
 
 from django.db.models import Q
+from django.core.paginator import Paginator
+
 from .models import Project, Tag
 
 def search_projects(request):
