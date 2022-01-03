@@ -33,7 +33,7 @@ def projects(request):
         
     
     
-    context = {'projects':projects, 'search_query':search_query}
+    context = {'projects':projects, 'search_query':search_query, 'paginator':paginator}
     return render(request,'projects/projects.html', context)
 
 def single_project(request,pk):
