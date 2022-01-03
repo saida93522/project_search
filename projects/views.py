@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from  .models import Project, Review, Tag
 from django.contrib.auth.decorators import login_required
 
+from django.contrib import messages
 # Create your views here.
 from django.shortcuts import render
 
@@ -29,8 +30,9 @@ def create_project(request):
         if form.is_valid():
             project = form.save(commit=False)
             project.owner = profile #set the currently logged in user to this project
+            messages.success(request,('Project was added successfully!'))
             project.save()
-            return redirect('projects')
+            return redirect('account')
     
     context = {'form':form}
     return render(request,'projects/project_form.html', context )
@@ -44,7 +46,8 @@ def edit_project(request,pk):
         form = ProjectForm(request.POST,request.FILES, instance=project)
         if form.is_valid():
             form.save()
-            return redirect('projects')
+            messages.success(request,('Project was updated successfully!'))
+            return redirect('account')
     
     context = {'form':form}
     return render(request,'projects/project_form.html', context )
@@ -52,9 +55,10 @@ def edit_project(request,pk):
 @login_required(login_url='login')
 def delete_project(request,pk):
     profile = request.user.profile
-    project = profile.project.get(id=pk)
+    project = profile.project_set.get(id=pk)
     if request.method == 'POST':
         project.delete()
-        return redirect('projects')
+        messages.error(request,('Project was deleted successfully!'))
+        return redirect('account')
     context = {'object':project}
     return render(request,'delete_template.html', context )

@@ -103,7 +103,7 @@
               >
               <a
                 class="tag tag--pill tag--main settings__btn"
-                href="{% url 'delete_skill' skill.id %}"
+                href="{% url 'delete_skill' skill.id %}?next=/account"
                 ><i class="im im-x-mark-circle-o"></i> Delete</a
               >
             </td>
@@ -142,7 +142,7 @@
               >
               <a
                 class="tag tag--pill tag--main settings__btn"
-                href="{% url 'delete-project' project.id %}"
+                href="{% url 'delete-project' project.id %}?next=/account"
                 ><i class="im im-x-mark-circle-o"></i> Delete</a
               >
             </td>
