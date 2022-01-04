@@ -46,11 +46,7 @@ class Skills(models.Model):
         return str(self.skill_name)
     
     
-
-    
-
 class Message(models.Model):
-    #  ability to message each other
     sender = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True)
     recipient = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True, related_name="messages") #To access the profiles messages instead of doing something like profile.message_set()
     name = models.CharField(max_length=200, blank=True,null=True)
