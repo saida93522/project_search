@@ -25,7 +25,15 @@ class Project(models.Model):
         ordering = ['-vote_ratio', '-vote_total', 'title']
 
     @property
+    def reviewers(self):
+        """ returns: an entire list of IDs of people that have reviewed a project. """
+        # users that aren't logged in can't vote
+        queryset = self.review_set.all().values_list('owner__id', flat=True) #returns true list of id
+        return queryset
+
+    @property
     def get_vote_count(self):
+        
         reviews = self.review_set.all()
         up_votes = reviews.filter(value='up').count()
         total_votes = reviews.count()

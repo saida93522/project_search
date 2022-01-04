@@ -43,7 +43,11 @@
             <h5 class="project--rating">
              {{ project.vote_ratio }}% Postitive Feedback ({{ project.vote_total }} Vote{{ project.vote_total|pluralize:"s" }})
             </h5>
-
+            {% if request.user.profile.id in project.reviewers %}
+            <p>You have submitted a review for this project.</p>
+            {% elif request.user.profile == project.owner %}
+            <p> You cannot vote/review your own work. </p>
+            {% elif request.user.is_authenticated %}
             <form class="form" action="{% url 'project' project.id %}" method="POST">
               {% csrf_token %}
              {% for field in form%}
@@ -57,7 +61,12 @@
               {% endfor %}
               <input class="btn btn--sub btn--lg" type="submit" value="Comments" />
             </form>
-
+            {% else %}
+            <!-- let user login first. once the loggin, bring them back on this page to submit review-->
+            <p>Uff da. must have an account leave a review.</p>
+              <p><a href="{% url 'login' %}?next={{request.path}}">Login</a></p>
+              
+            {% endif %}
 
 
 

@@ -28,6 +28,7 @@ def register_user(request):
             # log user in and redict them to profile page
             login(request, user)
             return redirect('profiles')
+            
         else:
             messages.error(request,f'An error occurred during registration.')
             return render(request, '404.html')
@@ -70,7 +71,7 @@ def login_user(request):
             # creates a session for this user in the db
             # then adds that session into the browser cookies.i.e cookies=sessionid
             login(request, user)
-            return redirect('profiles')
+            return redirect(request.GET['next'] if 'next' in request.GET else 'account') #send user to
         else:
             messages.error(request,'username OR password is incorrect.')
         
