@@ -181,3 +181,15 @@ def delete_skill(request,pk):
     return render(request, 'delete_template.html', context)
 
 
+
+@login_required(login_url='login')
+def my_inbox(request):
+    pass
+
+@login_required(login_url='login')
+def create_message(request,pk):
+    pass
+
+@login_required(login_url='login')
+def check_message(request,pk):
+    pass 
