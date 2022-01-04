@@ -11,7 +11,7 @@ from django.db.models import Q
 from .models import Profile, Message
 from .forms import UserRegisterForm, ProfileForm, SkillForm
 
-from .utils import search_profiles
+from .utils import search_profiles, paginate_profiles
 # Authentication
 
 def register_user(request):
@@ -97,8 +97,9 @@ def logout_user(request):
 def profiles(request):
     # verify request has a method/query else set query to an empty string
     users,search_query = search_profiles(request)
+    custom_range, users = paginate_profiles(request, users, 1)
   
-    context = {'users':users,'search_query':search_query}
+    context = {'users':users,'search_query':search_query, 'custom_range':custom_range}
     return render(request, 'users/profiles.html',context)
 
 def profile(request,pk):

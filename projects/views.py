@@ -3,7 +3,6 @@ from  .models import Project, Review, Tag
 from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
-from django.core.paginator import Paginator
 
 from .utils import search_projects, paginate_projects
 
@@ -12,7 +11,7 @@ from .forms import ProjectForm
 
 def projects(request):
     projects, search_query = search_projects(request)
-    custom_range, projects = paginate_projects(request, projects,6)
+    custom_range, projects = paginate_projects(request, projects,2)
     
     
     context = {'projects':projects, 'search_query':search_query,'custom_range':custom_range}

@@ -64,6 +64,9 @@
       </div>
     </div>
   </section>
+
+  <!-- paginations -->
+  {%include 'pagination.html' with queryset=users custom_range=custom_range%}
 </main>
 
 {% endblock content%}

@@ -9,7 +9,7 @@ def paginate_projects(request, projects,results):
     """ Paginate projects."""
 
     page = request.GET.get('page') #first page of result
-    results = 3 #3 result per-page
+    # results = 3 #3 result per-page
     paginator = Paginator(projects, results)
 
     try:
