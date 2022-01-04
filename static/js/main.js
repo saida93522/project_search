@@ -8,11 +8,11 @@ if (search_form) {
       e.preventDefault();
 
       //GET THE DATA ATTRIBUTE
-      let pages = this.dataset.page;
-      console.log("PAGE: ", pages);
+      let page = this.dataset.page;
+      console.log("PAGE: ", page);
 
       //ADD HIDDEN SEARCH INPUT TO FORM
-      searchForm.innerHTML += `<input value=${page} name="page" hidden/>`;
+      search_form.innerHTML += `<input value=${page} name="page" hidden/>`;
 
       //SUBMIT FORM
       search_form.submit();

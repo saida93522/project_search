@@ -11,7 +11,7 @@ from .forms import ProjectForm
 
 def projects(request):
     projects, search_query = search_projects(request)
-    custom_range, projects = paginate_projects(request, projects,2)
+    custom_range, projects = paginate_projects(request, projects,6)
     
     
     context = {'projects':projects, 'search_query':search_query,'custom_range':custom_range}

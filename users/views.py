@@ -97,7 +97,7 @@ def logout_user(request):
 def profiles(request):
     # verify request has a method/query else set query to an empty string
     users,search_query = search_profiles(request)
-    custom_range, users = paginate_profiles(request, users, 1)
+    custom_range, users = paginate_profiles(request, users, 6)
   
     context = {'users':users,'search_query':search_query, 'custom_range':custom_range}
     return render(request, 'users/profiles.html',context)
