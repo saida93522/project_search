@@ -6,7 +6,7 @@ from django.contrib import messages
 
 from .utils import search_projects, paginate_projects
 
-from .forms import ProjectForm
+from .forms import ProjectForm, ReviewForm
 
 
 def projects(request):
@@ -19,8 +19,22 @@ def projects(request):
 
 def single_project(request,pk):
     projectObj = Project.objects.get(id=pk)
-  
-    context = {'project':projectObj}
+    form = ReviewForm()
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        review = form.save(commit=False)
+        review.project = projectObj
+        review.owner = request.user.profile
+        review.save()
+        # update project votecount
+        projectObj.get_vote_count
+        
+        messages.success(request, 'Your review was successfully posted.')
+        return redirect('project', pk=projectObj.id) #send user back to their page
+
+      
+        
+    context = {'project':projectObj, 'form':form}
     return render(request,'projects/single_project.html',context)
 
 @login_required(login_url='login')
