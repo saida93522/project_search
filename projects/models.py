@@ -30,7 +30,7 @@ class Review(models.Model):
         ('up','Up Vote'),
         ('down','Down Vote')
     )
-    # owner = models.ForeignKey()
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
     value = models.CharField(max_length=200, choices=VOTE_TYPE)
@@ -40,6 +40,12 @@ class Review(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True,editable=False)
+
+    class Meta:
+        """ Ensure that a user can only leave one review per project. 
+        By binding owner and project values so no instance of a review can have the same owner and the same project.
+    """
+        unique_together = [['owner','project']]
 
     def __str__(self):
         return self.value
