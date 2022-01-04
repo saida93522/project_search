@@ -12,10 +12,10 @@ if (search_form) {
       console.log("PAGE: ", pages);
 
       //ADD HIDDEN SEARCH INPUT TO FORM
-      // searchForm.innerHTML += `<input value=${page} name="page" hidden/>`;
+      searchForm.innerHTML += `<input value=${page} name="page" hidden/>`;
 
       //SUBMIT FORM
-      // search_form.submit();
+      search_form.submit();
     });
   }
 }
