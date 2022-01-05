@@ -4,13 +4,19 @@
 <main class="inbox my-xl">
   <div class="content-box">
     <h3 class="inbox__title">New Messages(<span>{{unread_count}}</span>)</h3>
+
     <ul class="messages">
       <p></p>
       {% for msg in user_messages %}
-      <li class="message message--unread">
+      <!--  -->
+      {% if msg.is_read == False %}
+      <li class="message message--unread">{% else %}</li>
+
+      <li class="message">
+        {% endif %}
         <a href="{% url 'my_profile' msg.sender.id %}">
-          <span class="message__author">{{msg.sender}}</span>
-          <span class="message__subject">{{msg.body}}</span>
+          <span class="message__author">{{msg.name}}</span>
+          <span class="message__subject">{{msg.subject}}</span>
           <span class="message__date">{{msg.created}}</span>
         </a>
       </li>
