@@ -24,7 +24,7 @@ def register_user(request):
             user.username = user.username.lower()
             user.save()
             
-            messages.success(request,f'Welcome {user.name}.')
+            messages.success(request,f'Welcome {user.username}.')
             # log user in and redict them to profile page
             login(request, user)
             return redirect('profiles')

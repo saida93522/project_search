@@ -4,6 +4,8 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from .models import Profile
 
+from django.core.mail import send_mail
+from django.conf import settings
 
 def create_profile(sender,created,instance, **kwargs):
     """create profile automatically when a user is created.
@@ -20,6 +22,15 @@ def create_profile(sender,created,instance, **kwargs):
             email = user.email,
             name=user.first_name,
             )
+        subject = 'Welcome to DevSearch'
+        message = 'We are glad you are here!'
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER, #sender
+            [profile.email],#recipient
+            fail_silently=False,
+)
 
 
 
