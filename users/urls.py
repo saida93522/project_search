@@ -26,6 +26,6 @@ urlpatterns = [
     
     # message
     path('inbox/', views.my_inbox, name="inbox"),
-    path('create-message/<str:pk>/', views.create_message, name="create-message"),
+    path('create-message/<str:pk>/', views.create_message, name="create_message"),
     path('message/<str:pk>/', views.check_message, name="message"),
 ]

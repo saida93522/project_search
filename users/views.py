@@ -9,7 +9,7 @@ from django.contrib import messages
 
 from django.db.models import Q
 from .models import Profile, Message
-from .forms import UserRegisterForm, ProfileForm, SkillForm
+from .forms import UserRegisterForm, ProfileForm, SkillForm, MessageForm
 
 from .utils import search_profiles, paginate_profiles
 # Authentication
@@ -191,9 +191,37 @@ def my_inbox(request):
     return render(request, 'users/inbox.html', context)
 
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def create_message(request,pk):
-    pass
+    recipient = Profile.objects.get(id=pk)
+    form = MessageForm()
+
+    try:
+        sender = request.user.profile
+    except:
+        sender = None
+
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            msg = form.save(commit=False)
+            msg.sender = sender
+            msg.recipient = recipient
+
+            if sender:
+                msg.name = sender.name
+                msg.email = sender.email
+            
+            msg.save()
+            messages.success(request, 'Your message was successfully sent.')
+            return redirect('my_profile', pk=recipient.id)
+
+    
+    context = {'recipient':recipient, 'form':form}
+    return render(request, 'users/message_form.html', context)
+
+
+
 
 @login_required(login_url='login')
 def check_message(request,pk):
