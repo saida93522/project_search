@@ -197,4 +197,10 @@ def create_message(request,pk):
 
 @login_required(login_url='login')
 def check_message(request,pk):
-    pass 
+    profile = request.user.profile
+    message = profile.messages.get(id=pk)
+    if message.is_read == False:
+        message.is_read = True
+        message.save()
+    context = {'profile':profile, 'msg':message}
+    return render(request, 'users/message.html', context) 
