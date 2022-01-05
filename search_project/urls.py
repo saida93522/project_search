@@ -15,16 +15,38 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-import debug_toolbar
+
+from django.contrib.auth import views as auth_views
+
 from django.conf import settings
 from django.conf.urls.static import static
-
+import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('users.urls')),
+    path('',include('users.urls')), 
     path('projects/',include('projects.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
+
+     # link when user submits forgot password
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name="reset_password.html"),
+         name="reset_password"),
+    
+    # link when sent email message
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="reset_password_sent.html"),
+         name="password_reset_done"),
+    
+    # Email with link and reset instructions
+    path('reset/<uidb64>/<token>/', 
+         auth_views.PasswordResetConfirmView.as_view(template_name="reset.html"),
+         name="password_reset_confirm"),
+    
+    # Email sent to let user know password reset complete
+    path('reset_password_complete/', 
+         auth_views.PasswordResetCompleteView.as_view(template_name="reset_password_complete.html"),
+         name="password_reset_complete"),
+    
+    
 ]
 
 
