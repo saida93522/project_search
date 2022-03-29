@@ -34,7 +34,7 @@ urlpatterns = [
     
     # link when sent email message
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="reset_password_sent.html"),
-         name="password_reset_done"),
+         name="reset_password_done/"),
     
     # Email with link and reset instructions
     path('reset/<uidb64>/<token>/', 
